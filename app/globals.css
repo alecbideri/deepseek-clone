@@ -4,7 +4,10 @@
 @theme  {
   --color-primary: #4d6bfe;
   --color-dark : #292a2d;
-  --color-darker : #212327
+  --color-darker : #212327 ;
+  --color-light-darker : #404045;
+  --color-lighter-dark : #71717a;
+  --color-another-dark : #414159;
 }
 
 html{

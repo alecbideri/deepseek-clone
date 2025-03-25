@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { assets } from "@/assets/assets";
+import { useClerk, UserButton, userButton } from "@clerk/nextjs";
+import { useAppContext } from "@/context/AppContext";
+import ChatLabel from "@/components/ChatLabel";
 
 const Sidebar = ({ expand, setExpand }) => {
+  const { openSignIn } = useClerk();
+  const { user } = useAppContext();
+  const [openMenu, setOpenMenu] = useState({ id: 0, open: false });
   return (
     <div
       className={`flex flex-col justify-between bg-darker pt-7 transition-all z-50 max-md:absolute max-md:h-screen ${
@@ -79,6 +85,7 @@ const Sidebar = ({ expand, setExpand }) => {
         {expand && (
           <div className="mt-8 text-white/25 text-sm">
             <p className="my-1">Recents</p>
+            <ChatLabel openMenu={openMenu} setOpenMenu={setOpenMenu} />
           </div>
         )}
       </div>
@@ -115,13 +122,19 @@ const Sidebar = ({ expand, setExpand }) => {
 
         {/* User Profile */}
         <div
+          onClick={user ? null : openSignIn}
           className={`flex items-center cursor-pointer ${
             expand
               ? "gap-3 text-white/60 text-sm p-2 hover:bg-white/10"
               : "justify-center w-full h-10 hover:bg-gray-500/30 rounded-lg"
           }`}
         >
-          <Image src={assets.profile_icon} alt="Profile" className="w-7" />
+          {user ? (
+            <UserButton />
+          ) : (
+            <Image src={assets.profile_icon} alt="Profile" className="w-7" />
+          )}
+
           {expand && <span>My profile</span>}
         </div>
       </div>
