@@ -13,34 +13,53 @@ export async function POST(req) {
     "svix-signature": headerPayLoad.get("svix-signature"),
   };
 
-  //   Get the  payload and verify it
-
   const payload = await req.json();
   const body = JSON.stringify(payload);
   const { data, type } = wh.verify(body, svixHeaders);
 
-  //   prepare the user data to be saved in the database
+  // Connect to the database and handle errors
+  try {
+    await connectDB();
+  } catch (error) {
+    console.error("Failed to connect to database:", error);
+    return new Response(
+      JSON.stringify({ error: "Database connection failed" }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+  }
 
-  const userData = {
-    _id: data._id,
-    email: data.email_address[0].email_address,
-    name: `${data.first_name} ${data.last_name}`,
-    image_url: data.image_url,
-  };
-
-  await connectDB();
-
+  // Rest of your code...
   switch (type) {
     case "user.created":
-      await user.create(userData);
-      break;
     case "user.updated":
-      await user.findByIdAndUpdate(data.id, userData);
+      const userData = {
+        _id: data.id,
+        email:
+          data.email_addresses && data.email_addresses.length > 0
+            ? data.email_addresses[0].email_address
+            : null,
+        name: `${data.first_name} ${data.last_name}`,
+        image_url: data.image_url,
+      };
+      if (type === "user.created") {
+        const newUser = await user.create(userData);
+        console.log("User created:", newUser);
+      } else {
+        await user.findByIdAndUpdate(data.id, userData);
+      }
       break;
     case "user.deleted":
       await user.findByIdAndDelete(data.id);
       break;
+    default:
+      console.log("Unhandled event type:", type);
   }
 
-  return NextRequest.json({ message: "Event received" });
+  return new Response(JSON.stringify({ message: "Event received" }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }
