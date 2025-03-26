@@ -32,7 +32,7 @@ export async function POST(req) {
 
   switch (type) {
     case "user.created":
-      await user.created(userData);
+      await user.create(userData);
       break;
     case "user.updated":
       await user.findByIdAndUpdate(data.id, userData);
