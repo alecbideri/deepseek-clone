@@ -2,7 +2,6 @@ import { Webhook } from "svix";
 import connectDB from "@/config/db";
 import user from "@/models/User";
 import { headers } from "next/headers";
-import { NextRequest } from "next/server";
 
 export async function POST(req) {
   const wh = new Webhook(process.env.SIGNING_SECRET);
@@ -16,8 +15,8 @@ export async function POST(req) {
   const payload = await req.json();
   const body = JSON.stringify(payload);
   const { data, type } = wh.verify(body, svixHeaders);
+  console.log("Webhook data:", data);
 
-  // Connect to the database and handle errors
   try {
     await connectDB();
   } catch (error) {
@@ -31,7 +30,6 @@ export async function POST(req) {
     );
   }
 
-  // Rest of your code...
   switch (type) {
     case "user.created":
     case "user.updated":
@@ -42,11 +40,22 @@ export async function POST(req) {
             ? data.email_addresses[0].email_address
             : null,
         name: `${data.first_name} ${data.last_name}`,
-        image_url: data.image_url,
+        image: data.image_url || null, // Match schema field name
       };
       if (type === "user.created") {
-        const newUser = await user.create(userData);
-        console.log("User created:", newUser);
+        try {
+          const newUser = await user.create(userData);
+          console.log("User created:", newUser);
+        } catch (error) {
+          console.error("Error creating user:", error);
+          return new Response(
+            JSON.stringify({ error: "Failed to create user" }),
+            {
+              status: 500,
+              headers: { "Content-Type": "application/json" },
+            },
+          );
+        }
       } else {
         await user.findByIdAndUpdate(data.id, userData);
       }
