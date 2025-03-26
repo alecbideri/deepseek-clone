@@ -16,13 +16,13 @@ export default async function connectDB() {
 
   // If no connection and no promise, create a new connection
   if (!cached.promise) {
-    if (!process.env.MONGODB_URI) {
-      throw new Error("MONGODB_URI is not defined in environment variables");
+    if (!process.env.MONGO_URI) {
+      throw new Error("MONGO_URI is not defined in environment variables");
     }
 
     console.log("Attempting to connect to MongoDB...");
     cached.promise = mongoose
-      .connect(process.env.MONGODB_URI, {
+      .connect(process.env.MONGO_URI, {
         // Optional: Add connection options if needed
         bufferCommands: false, // Disable buffering if connection fails
       })
