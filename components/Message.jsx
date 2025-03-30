@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { assets } from "@/assets/assets";
+import Markdown from "react-markdown";
+import Prism from "prismjs";
+import toast from "react-hot-toast";
 
 const Message = ({ role, content }) => {
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [content]);
+
+  const copyMessage = () => {
+    navigator.clipboard.writeText(content);
+    toast.success("Message copied to clipboard");
+  };
+
+  const likedMessage = () => {
+    toast.success("Liked the response 🙂🙂!!");
+  };
+  const notLikedMessage = () => {
+    toast.error("Disliked the response😔😔😔!!!!");
+  };
+
   return (
     <div className="flex flex-col items-center w-full max-w-3xl text-sm">
       <div
@@ -20,7 +39,7 @@ const Message = ({ role, content }) => {
                 : "left-9 -bottom-6"
             } transition-all`}
           >
-            <div className="flex flex-row items-center gap-2 opacity-70 w-fit flex-nowrap">
+            <div className="flex flex-row items-center justify-center gap-2 opacity-70 w-fit flex-nowrap">
               {role === "user" ? (
                 <>
                   <Image
@@ -37,9 +56,10 @@ const Message = ({ role, content }) => {
               ) : (
                 <>
                   <Image
+                    onClick={copyMessage}
                     src={assets.copy_icon}
                     alt="Copy Icon"
-                    className="w-4"
+                    className="w-4 cursor-pointer"
                   />
                   <Image
                     src={assets.regenerate_icon}
@@ -47,14 +67,16 @@ const Message = ({ role, content }) => {
                     className="w-4"
                   />
                   <Image
+                    onClick={likedMessage}
                     src={assets.like_icon}
                     alt="Like Icon"
-                    className="w-4"
+                    className="w-4 cursor-pointer"
                   />
                   <Image
+                    onClick={notLikedMessage}
                     src={assets.dislike_icon}
                     alt="Dislike Icon"
-                    className="w-4"
+                    className="w-4 cursor-pointer"
                   />
                 </>
               )}
@@ -69,7 +91,9 @@ const Message = ({ role, content }) => {
                 alt="Logo Icon"
                 className="h-9 w-9 p-1"
               />
-              <div className="space-y-4 w-full overflow-scroll">{content}</div>
+              <div className="space-y-4 w-full overflow-scroll">
+                <Markdown>{content}</Markdown>
+              </div>
             </>
           )}
         </div>

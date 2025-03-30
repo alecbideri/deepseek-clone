@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { assets } from "@/assets/assets";
-import { useClerk, UserButton, userButton } from "@clerk/nextjs";
+import { useClerk, UserButton } from "@clerk/nextjs";
 import { useAppContext } from "@/context/AppContext";
 import ChatLabel from "@/components/ChatLabel";
 
 const Sidebar = ({ expand, setExpand }) => {
   const { openSignIn } = useClerk();
-  const { user } = useAppContext();
+  const { user, chats, createNewChat } = useAppContext();
   const [openMenu, setOpenMenu] = useState({ id: 0, open: false });
+
   return (
     <div
       className={`flex flex-col justify-between bg-darker pt-7 transition-all z-50 max-md:absolute max-md:h-screen ${
@@ -61,6 +62,7 @@ const Sidebar = ({ expand, setExpand }) => {
 
         {/* New Chat Button */}
         <button
+          onClick={createNewChat}
           className={`mt-8 flex items-center justify-center cursor-pointer ${
             expand
               ? "bg-primary hover:opacity-90 rounded-2xl gap-2 p-2.5 w-max"
@@ -85,7 +87,15 @@ const Sidebar = ({ expand, setExpand }) => {
         {expand && (
           <div className="mt-8 text-white/25 text-sm">
             <p className="my-1">Recents</p>
-            <ChatLabel openMenu={openMenu} setOpenMenu={setOpenMenu} />
+            {chats.map((chat) => (
+              <ChatLabel
+                key={chat._id} // Added key prop here
+                name={chat.name}
+                id={chat._id}
+                openMenu={openMenu}
+                setOpenMenu={setOpenMenu}
+              />
+            ))}
           </div>
         )}
       </div>

@@ -40,7 +40,7 @@ export async function POST(req) {
             ? data.email_addresses[0].email_address
             : null,
         name: `${data.first_name} ${data.last_name}`,
-        image: data.image_url || null, // Match schema field name
+        image: data.image_url || null,
       };
       if (type === "user.created") {
         try {
