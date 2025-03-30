@@ -1,6 +1,6 @@
 # DeepSeek Chat Interface Clone
 
-[Deepseek clone](deepseek-clone-self.vercel.app) This project is a web application designed to replicate the user interface and core conversational functionality of the **DeepSeek AI chat platform**. It provides a clean, responsive interface allowing users to interact with the powerful DeepSeek language models.
+[Deepseek clone](https://deepseek-clone-self.vercel.app/) This project is a web application designed to replicate the user interface and core conversational functionality of the **DeepSeek AI chat platform**. It provides a clean, responsive interface allowing users to interact with the powerful DeepSeek language models.
 
 Built with modern web technologies, this clone features:
 
