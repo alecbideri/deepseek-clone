@@ -104,6 +104,6 @@ Contributions are welcome! Please feel free to submit a Pull Request or open an 
 
 ## Business Inquiries
 
-For business inquiries, please write via email: [alecbideri@gmail.com](mailto:alecbideri@gmail.com)
+For business inquiries, please write to me via email: [alecbideri@gmail.com](mailto:alecbideri@gmail.com)
 
 ---
