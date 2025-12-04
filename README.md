@@ -1,13 +1,17 @@
 # DeepSeek Chat Interface Clone
 
-[Deepseek clone](https://deepseek-clone-self.vercel.app/) This project is a web application designed to replicate the user interface and core conversational functionality of the **DeepSeek AI chat platform**. It provides a clean, responsive interface allowing users to interact with the powerful DeepSeek language models.
+![DeepSeek Clone Preview](./public/assets/deepseek-clone-preview.png)
+
+[Deepseek clone](https://deepseek-clone-self.vercel.app/)
+
+This project is a web application designed to replicate the user interface and core conversational functionality of the **DeepSeek AI chat platform**. It provides a clean, responsive interface allowing users to interact with the powerful DeepSeek language models.
 
 Built with modern web technologies, this clone features:
 
-* **User Authentication:** Secure sign-up and sign-in functionality powered by Clerk.
-* **Chat Persistence:** Conversation history is stored and retrieved using MongoDB.
-* **Real-time Interaction:** Seamless communication with the DeepSeek API for AI-generated responses.
-* **Modern UI:** A responsive user interface built with Next.js, React, and styled using Tailwind CSS.
+*   **User Authentication:** Secure sign-up and sign-in functionality powered by Clerk.
+*   **Chat Persistence:** Conversation history is stored and retrieved using MongoDB.
+*   **Real-time Interaction:** Seamless communication with the DeepSeek API for AI-generated responses.
+*   **Modern UI:** A responsive user interface built with Next.js, React, and styled using Tailwind CSS.
 
 This project serves as a practical example of integrating front-end frameworks, authentication services, databases, and third-party AI APIs to create a functional chat application.
 
@@ -15,12 +19,12 @@ This project serves as a practical example of integrating front-end frameworks, 
 
 ## Tech Stack
 
-* **Framework:** [Next.js](https://nextjs.org/)
-* **Language:** JavaScript
-* **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-* **Authentication:** [Clerk](https://clerk.com/)
-* **Database:** [MongoDB](https://www.mongodb.com/) (with Mongoose)
-* **AI:** [DeepSeek API](https://platform.deepseek.com/)
+*   **Framework:** [Next.js](https://nextjs.org/)
+*   **Language:** JavaScript
+*   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+*   **Authentication:** [Clerk](https://clerk.com/)
+*   **Database:** [MongoDB](https://www.mongodb.com/) (with Mongoose)
+*   **AI:** [DeepSeek API](https://platform.deepseek.com/)
 
 ---
 
@@ -30,20 +34,20 @@ Follow these steps to set up and run the project locally:
 
 ### Prerequisites
 
-* [Node.js](https://nodejs.org/) (LTS version recommended)
-* [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-* [Git](https://git-scm.com/)
-* A MongoDB database instance (e.g., a free cluster from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
-* A [Clerk](https://clerk.com/) application set up.
-* A [DeepSeek](https://platform.deepseek.com/) API Key.
+*   [Node.js](https://nodejs.org/) (LTS version recommended)
+*   [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+*   [Git](https://git-scm.com/)
+*   A MongoDB database instance (e.g., a free cluster from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+*   A [Clerk](https://clerk.com/) application set up.
+*   A [DeepSeek](https://platform.deepseek.com/) API Key.
 
 ### Installation & Setup
 
 1.  **Clone the Repository:**
-    ```
+    ```bash
     git clone https://github.com/alecbideri/deepseek-clone.git
+    cd deepseek-clone
     ```
-
 
 2.  **Install Dependencies:**
     ```bash
@@ -79,8 +83,8 @@ Follow these steps to set up and run the project locally:
     ```
 
     **Important:**
-    * Never commit your `.env.local` file to version control. The `.gitignore` file should already be configured to prevent this.
-    * Ensure the URLs in the Clerk environment variables match the configuration within your Clerk application dashboard.
+    *   Never commit your `.env.local` file to version control. The `.gitignore` file should already be configured to prevent this.
+    *   Ensure the URLs in the Clerk environment variables match the configuration within your Clerk application dashboard.
 
 ### Running the Development Server
 
@@ -96,14 +100,22 @@ Follow these steps to set up and run the project locally:
 
 ---
 
-## Contributing
+## Project Structure
 
-Contributions are welcome! Please feel free to submit a Pull Request or open an Issue for bugs, features, or improvements.
+Here's a quick overview of the project's folder structure:
+
+```plaintext
+deepseek-clone/
+├── app/                # Next.js App Router pages and layouts
+├── assets/             # Static assets and images
+├── components/         # Reusable React components
+├── config/             # Configuration files (e.g., database connection)
+├── context/            # React Context for state management
+├── models/             # Mongoose data models
+├── public/             # Public static files
+├── .env.local          # Environment variables (not committed)
+└── package.json        # Project dependencies and scripts
+```
 
 ---
 
-## Business Inquiries
-
-For business inquiries, please write to me via email: [alecbideri@gmail.com](mailto:alecbideri@gmail.com)
-
----
